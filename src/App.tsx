@@ -45,6 +45,31 @@ function App() {
           </div>
 
           <div className="bg-gray-900/50 backdrop-blur-xl rounded-2xl border border-gray-800 p-6">
+            <div className="w-12 h-12 bg-purple-500/20 rounded-xl flex items-center justify-center mb-5">
+              <svg
+                className="w-6 h-6 text-purple-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"
+                />
+              </svg>
+            </div>
+            <h3 className="text-lg font-medium text-white mb-2 leading-snug">
+              Smart Context Menu
+            </h3>
+            <p className="text-sm text-gray-400 leading-relaxed">
+              Select any text and the component appears with automatic context
+              inclusion for precise AI assistance.
+            </p>
+          </div>
+
+          <div className="bg-gray-900/50 backdrop-blur-xl rounded-2xl border border-gray-800 p-6">
             <div className="w-12 h-12 bg-blue-500/20 rounded-xl flex items-center justify-center mb-5">
               <svg
                 className="w-6 h-6 text-blue-400"
@@ -66,31 +91,6 @@ function App() {
             <p className="text-sm text-gray-400 leading-relaxed">
               Beautiful hover effects and focus transitions powered by CSS
               transforms.
-            </p>
-          </div>
-
-          <div className="bg-gray-900/50 backdrop-blur-xl rounded-2xl border border-gray-800 p-6">
-            <div className="w-12 h-12 bg-purple-500/20 rounded-xl flex items-center justify-center mb-5">
-              <svg
-                className="w-6 h-6 text-purple-400"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4"
-                />
-              </svg>
-            </div>
-            <h3 className="text-lg font-medium text-white mb-2 leading-snug">
-              Flexible Positioning
-            </h3>
-            <p className="text-sm text-gray-400 leading-relaxed">
-              Position anywhere on screen with simple props. Perfect for fixed
-              overlays.
             </p>
           </div>
 
@@ -168,6 +168,48 @@ function App() {
                 </code>
               </div>
             </div>
+
+            <div className="border border-gray-800 rounded-xl p-6">
+              <h3 className="text-base font-medium text-white mb-3 leading-snug">
+                🎯 Context Menu Mode
+              </h3>
+              <p className="text-sm text-gray-400 mb-4 leading-relaxed">
+                Enable text selection context menu with smart positioning
+              </p>
+              <div className="bg-gray-950 rounded-lg p-4 border border-gray-800">
+                <code className="text-emerald-400 text-xs font-mono leading-relaxed">
+                  {`<AskChatGPT enableContextMenu={true} />`}
+                </code>
+              </div>
+            </div>
+
+            <div className="border border-gray-800 rounded-xl p-6">
+              <h3 className="text-base font-medium text-white mb-3 leading-snug">
+                🔧 Custom Prompt Engineering
+              </h3>
+              <p className="text-sm text-gray-400 mb-4 leading-relaxed">
+                Full control over ChatGPT query formatting with custom logic
+              </p>
+              <div className="bg-gray-950 rounded-lg p-4 border border-gray-800">
+                <code className="text-emerald-400 text-xs font-mono leading-relaxed">
+                  {`<AskChatGPT 
+  enableContextMenu={true}
+  formatQuery={({ userQuestion, selectedText, currentUrl }) => {
+    if (selectedText) {
+      return \`Role: You are a helpful AI assistant.
+      
+Context: "\${selectedText}"
+Question: \${userQuestion}
+Source: \${currentUrl}
+
+Please provide a detailed explanation.\`;
+    }
+    return \`Question: \${userQuestion}\`;
+  }}
+/>`}
+                </code>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -196,6 +238,69 @@ function App() {
           </div>
         </div>
 
+        {/* Context Menu Demo */}
+        <div className="bg-gray-900/50 backdrop-blur-xl rounded-2xl border border-gray-800 p-8 mb-16">
+          <h2 className="text-2xl font-medium text-white mb-4 leading-tight">
+            🎯 Context Menu Demo
+          </h2>
+          <p className="text-sm text-gray-400 mb-8 leading-relaxed">
+            Select any text below and watch the magic happen! The AskChatGPT
+            component will appear near your selection with smart context.
+          </p>
+
+          <div className="bg-gray-950/50 rounded-xl p-6 border border-gray-800 space-y-4">
+            <div className="space-y-4 text-gray-300 leading-relaxed">
+              <p>
+                <span className="text-white font-medium">
+                  Artificial Intelligence
+                </span>{" "}
+                is transforming how we interact with technology. From{" "}
+                <span className="text-blue-400">
+                  machine learning algorithms
+                </span>{" "}
+                that power recommendation systems to
+                <span className="text-green-400">
+                  natural language processing
+                </span>{" "}
+                that enables chatbots, AI is everywhere.
+              </p>
+
+              <p>
+                <span className="text-purple-400">React components</span>{" "}
+                provide a declarative way to build user interfaces. They
+                encapsulate state and behavior, making applications more{" "}
+                <span className="text-yellow-400">
+                  maintainable and reusable
+                </span>
+                . Modern React development leverages hooks for state management
+                and effects.
+              </p>
+
+              <p>
+                <span className="text-cyan-400">TypeScript</span> adds static
+                type checking to JavaScript, helping developers catch errors
+                early. Combined with{" "}
+                <span className="text-pink-400">Tailwind CSS</span>, it creates
+                a powerful development experience for building modern,
+                type-safe, and beautifully styled applications.
+              </p>
+            </div>
+
+            <div className="mt-6 p-4 bg-gray-800/50 rounded-lg border border-gray-700">
+              <p className="text-xs text-gray-400 mb-2">💡 Try this:</p>
+              <p className="text-sm text-gray-300">
+                1. Select any highlighted text above
+                <br />
+                2. The AskChatGPT component will appear below your selection
+                <br />
+                3. Ask questions about the selected content
+                <br />
+                4. Get AI assistance with automatic context!
+              </p>
+            </div>
+          </div>
+        </div>
+
         {/* Footer */}
         <div className="text-center">
           <p className="text-gray-500 text-xs leading-relaxed">
@@ -203,6 +308,9 @@ function App() {
           </p>
         </div>
       </div>
+
+      {/* Add context menu enabled component */}
+      <AskChatGPT enableContextMenu={true} />
 
       {/* Default bottom-center component */}
       <AskChatGPT />

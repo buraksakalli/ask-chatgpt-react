@@ -1,6 +1,6 @@
 {
   "name": "ask-chatgpt-react",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "type": "module",
   "description": "A sleek, animated React component that lets users ask ChatGPT questions with the current page context. Built with TypeScript and Tailwind CSS.",
   "main": "dist/index.umd.js",

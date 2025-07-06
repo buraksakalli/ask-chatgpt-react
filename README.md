@@ -9,6 +9,7 @@ A sleek, animated React component that lets users ask ChatGPT questions with the
 
 - 🚀 **Instant Integration** - Drop the component anywhere in your React app
 - ✨ **Smooth Animations** - Beautiful hover effects and focus transitions
+- 🎯 **Smart Context Menu** - Select text to trigger AI assistance with automatic context
 - 🎯 **Flexible Positioning** - Position anywhere on screen with simple props
 - 📱 **Mobile Responsive** - Works perfectly on all device sizes
 - 🎨 **Customizable** - Built with Tailwind CSS for easy styling
@@ -74,6 +75,67 @@ import { AskChatGPT } from 'ask-chatgpt-react';
 />
 ```
 
+### Context Menu Mode
+
+Enable the smart context menu that appears when users select text:
+
+```jsx
+// Basic context menu
+<AskChatGPT enableContextMenu={true} />
+
+// Context menu with custom settings
+<AskChatGPT
+  enableContextMenu={true}
+  contextMenuOffset={15}
+  selectionMinLength={5}
+/>
+```
+
+**Context Menu Features:**
+
+- 📝 **Text Selection Detection** - Automatically detects when text is selected
+- 🎯 **Smart Positioning** - Appears near the selected text with intelligent placement
+- 🎨 **Clean Input Experience** - Shows selected text preview while keeping input field clean
+- 📋 **Automatic Context** - Includes selected text context in ChatGPT queries behind the scenes
+- 📱 **Touch Support** - Works on mobile devices with touch selection
+- ⚡ **Instant Feedback** - Beautiful preview badge shows selected text
+- ⌨️ **Keyboard Support** - Press Escape to close context menu
+
+### Custom Prompt Engineering
+
+Take full control over how queries are formatted before sending to ChatGPT:
+
+```jsx
+<AskChatGPT
+  enableContextMenu={true}
+  formatQuery={({ userQuestion, selectedText, currentUrl }) => {
+    if (selectedText) {
+      return `Role: You are a helpful AI assistant.
+      
+Context: "${selectedText}"
+Question: ${userQuestion}
+Source: ${currentUrl}
+
+Please provide a detailed explanation.`;
+    }
+    return `Question: ${userQuestion}`;
+  }}
+/>
+```
+
+**formatQuery Parameters:**
+
+- `userQuestion` (string) - The user's typed question
+- `selectedText` (string | undefined) - Selected text from the page
+- `currentUrl` (string) - Current page URL
+
+**Best Practices:**
+
+- Define clear roles and instructions for ChatGPT
+- Include relevant context and formatting
+- Handle both selected text and regular question scenarios
+- Keep prompts concise but descriptive
+
 ### With Custom Styling
 
 ```jsx
@@ -82,15 +144,19 @@ import { AskChatGPT } from 'ask-chatgpt-react';
 
 ## Props
 
-| Prop        | Type                                              | Default     | Description            |
-| ----------- | ------------------------------------------------- | ----------- | ---------------------- |
-| `className` | `string`                                          | `""`        | Additional CSS classes |
-| `style`     | `CSSProperties`                                   | `{}`        | Inline styles          |
-| `position`  | `"fixed" \| "static" \| "absolute" \| "relative"` | `"fixed"`   | CSS position type      |
-| `bottom`    | `string \| number`                                | `"1.25rem"` | Bottom position        |
-| `right`     | `string \| number`                                | `undefined` | Right position         |
-| `left`      | `string \| number`                                | `"50%"`     | Left position          |
-| `top`       | `string \| number`                                | `undefined` | Top position           |
+| Prop                 | Type                                              | Default     | Description                                 |
+| -------------------- | ------------------------------------------------- | ----------- | ------------------------------------------- |
+| `className`          | `string`                                          | `""`        | Additional CSS classes                      |
+| `style`              | `CSSProperties`                                   | `{}`        | Inline styles                               |
+| `position`           | `"fixed" \| "static" \| "absolute" \| "relative"` | `"fixed"`   | CSS position type                           |
+| `bottom`             | `string \| number`                                | `"1.25rem"` | Bottom position                             |
+| `right`              | `string \| number`                                | `undefined` | Right position                              |
+| `left`               | `string \| number`                                | `"50%"`     | Left position                               |
+| `top`                | `string \| number`                                | `undefined` | Top position                                |
+| `enableContextMenu`  | `boolean`                                         | `false`     | Enable text selection context menu          |
+| `contextMenuOffset`  | `number`                                          | `10`        | Distance from selected text (in pixels)     |
+| `selectionMinLength` | `number`                                          | `3`         | Minimum text length to trigger context menu |
+| `formatQuery`        | `function`                                        | `undefined` | Custom prompt engineering function          |
 
 ## Behavior
 
@@ -99,6 +165,8 @@ import { AskChatGPT } from 'ask-chatgpt-react';
 - **Auto-centering**: When `left="50%"`, the component auto-centers
 - **Page Context**: Automatically includes the current page URL in ChatGPT queries
 - **New Tab**: Opens ChatGPT in a new tab/window
+- **Keyboard Navigation**: Press Escape to close context menu
+- **Custom Formatting**: Use `formatQuery` for advanced prompt engineering
 
 ## Styling
 
@@ -118,6 +186,9 @@ The component uses Tailwind CSS classes internally but can be customized:
 ```jsx
 // Add to product pages for customer support
 <AskChatGPT position="fixed" bottom="20px" right="20px" />
+
+// Context menu for product descriptions
+<AskChatGPT enableContextMenu={true} />
 ```
 
 ### Blog/Documentation
@@ -125,6 +196,60 @@ The component uses Tailwind CSS classes internally but can be customized:
 ```jsx
 // Add to articles for content-related questions
 <AskChatGPT position="static" left="50%" />
+
+// Context menu for technical articles with shorter trigger
+<AskChatGPT
+  enableContextMenu={true}
+  selectionMinLength={5}
+  contextMenuOffset={15}
+/>
+```
+
+### Educational Content
+
+```jsx
+// Context menu for learning materials with custom formatting
+<AskChatGPT
+  enableContextMenu={true}
+  selectionMinLength={10}
+  formatQuery={({ userQuestion, selectedText, currentUrl }) => {
+    if (selectedText) {
+      return `You are an educational AI tutor. Help explain this concept:
+
+"${selectedText}"
+
+Student question: ${userQuestion}
+
+Please provide:
+1. A simple explanation
+2. Key concepts
+3. Real-world examples
+4. Further learning suggestions`;
+    }
+    return userQuestion;
+  }}
+/>
+```
+
+### Code Documentation
+
+```jsx
+// Context menu for technical documentation
+<AskChatGPT
+  enableContextMenu={true}
+  formatQuery={({ userQuestion, selectedText, currentUrl }) => {
+    if (selectedText) {
+      return `You are a technical documentation assistant.
+
+Code/Documentation: "${selectedText}"
+Developer question: ${userQuestion}
+Source: ${currentUrl}
+
+Please provide clear technical guidance with code examples if relevant.`;
+    }
+    return `Technical question: ${userQuestion}`;
+  }}
+/>
 ```
 
 ### Dashboard
